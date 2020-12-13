@@ -89,19 +89,59 @@ function createItems(cb) {
 	async.parallel(
 		[
 			function (callback) {
-				itemCreate("Pink and Poppy", 1881, categories[0], 3, 49.99, "image", callback);
+				itemCreate(
+					"Pink and Poppy",
+					1881,
+					categories[0],
+					3,
+					49.99,
+					"https://odininventoryapp.s3.us-east-2.amazonaws.com/morris1small.jpg",
+					callback
+				);
 			},
 			function (callback) {
-				itemCreate("Grafton", 1883, categories[0], 5, 69.99, "image", callback);
+				itemCreate(
+					"Grafton",
+					1883,
+					categories[0],
+					5,
+					69.99,
+					"https://odininventoryapp.s3.us-east-2.amazonaws.com/morris2small.jpg",
+					callback
+				);
 			},
 			function (callback) {
-				itemCreate("Wild Tulip", 1884, categories[0], 6, 59.99, "image", callback);
+				itemCreate(
+					"Wild Tulip",
+					1884,
+					categories[0],
+					6,
+					59.99,
+					"https://odininventoryapp.s3.us-east-2.amazonaws.com/morris3small.jpg",
+					callback
+				);
 			},
 			function (callback) {
-				itemCreate("Pink and Rose", 1890, categories[1], 8, 54.99, "image", callback);
+				itemCreate(
+					"Pink and Rose",
+					1890,
+					categories[1],
+					8,
+					54.99,
+					"https://odininventoryapp.s3.us-east-2.amazonaws.com/morris4small.jpg",
+					callback
+				);
 			},
 			function (callback) {
-				itemCreate("Blackthorn", 1892, categories[1], 7, 74.99, "image", callback);
+				itemCreate(
+					"Blackthorn",
+					1892,
+					categories[1],
+					7,
+					74.99,
+					"https://odininventoryapp.s3.us-east-2.amazonaws.com/morris5small.jpg",
+					callback
+				);
 			},
 		],
 		// optional callback
