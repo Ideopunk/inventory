@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Inventory / <%= category.name %></title>
+		<link rel="stylesheet" href="/stylesheets/style.css" />
+	</head>
+	<body>
+		<h1><%= category.name %></h1>
+		<p><%= category.description %></p>
+		<ul>
+			<% category_items.forEach(function(item) { %>
+			<li>
+				<h2>
+					<a href="<%=category.url%>"> <%= item.name %> </a>
+				</h2>
+				<img src="<%= item.image %>" alt="Wallpaper thumbnail" />
+				<p>$<%= item.price %></p>
+				<p>$<%= item.stockCount %> remaining.</p>
+			</li>
+			<% }); %>
+		</ul>
+		<p>Welcome to <%= title %></p>
+	</body>
+</html>
