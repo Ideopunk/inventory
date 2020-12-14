@@ -8,7 +8,8 @@ const multerS3 = require("multer-s3");
 const s3 = new aws.S3({ region: "us-east-2" });
 
 const fileFilter = (req, file, cb) => {
-	console.log(file);
+    console.log(file);
+    console.log(file.mimetype)
 	if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
 		cb(null, true);
 	} else {
@@ -22,6 +23,9 @@ const upload = multer({
 		s3: s3,
 		bucket: process.env.BUCKET_NAME,
 		contentType: multerS3.AUTO_CONTENT_TYPE,
+		// contentType: function (req, file, cb) {
+		// 	cb(null, "image/png");
+		// },
 		key: function (req, file, cb) {
 			cb(null, Date.now().toString());
 		},
