@@ -1,5 +1,6 @@
 const Item = require("../models/item");
 const Category = require("../models/category");
+const multer = require("multer");
 
 const { body, validationResult } = require("express-validator");
 const async = require("async");
@@ -33,3 +34,55 @@ exports.item_detail = (req, res, next) => {
 			});
 		});
 };
+
+exports.item_create_get = (req, res, next) => {
+	Category.find({}, "name").exec((err, categories) => {
+		if (err) {
+			return next(err);
+		}
+		res.render("item_form", { title: "Add item to inventory", category_list: categories });
+	});
+};
+
+exports.item_create_post = [
+	body("name", "Name must be specified").trim().isLength({ min: 3 }).escape(),
+	body("year", "Year must be specified").isNumeric(),
+	body("stockCount", "Stock must be specified").isNumeric(),
+	body("price", "Price must be specified").isNumeric(),
+	body("category", "Category must be specified").trim().isLength({ min: 1 }).escape(),
+	(req, res, next) => {
+		console.log(req.body);
+		console.log(req.file);
+		const errors = validationResult(req);
+
+		const item = new Item({
+			name: req.body.name,
+			price: req.body.price,
+			stockCount: req.body.stockCount,
+			year: req.body.year,
+			image: req.file.location,
+			category: req.body.category,
+		});
+
+		if (!errors.isEmpty()) {
+			console.log(errors);
+			Category.find({}, "name").exec((err, categories) => {
+				if (err) {
+					return next(err);
+				}
+				res.render("item_form", {
+					title: "Add item to inventory",
+					category_list: categories,
+					errors: errors.array(),
+				});
+			});
+		} else {
+			item.save(function (err) {
+				if (err) {
+					return next(err);
+				}
+				res.redirect(item.url);
+			});
+		}
+	},
+];

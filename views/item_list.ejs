@@ -6,15 +6,15 @@
 	</head>
 	<body>
 		<h1><%= title %></h1>
-		<ul>
+		<ul class="stuff-container">
 			<% item_list.forEach(function(item) { %>
-			<li>
+			<li class="card">
 				<h2>
 					<a href="<%=item.url%>"> <%= item.name %> </a>
 				</h2>
 				<img src="<%= item.image %>" alt="Wallpaper thumbnail" />
 				<p>$<%= item.price %></p>
-				<p>$<%= item.stockCount %> remaining.</p>
+				<p><%= item.stockCount %> remaining.</p>
 			</li>
 			<% }); %>
 		</ul>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Inventory / Add item</title>
+		<link rel="stylesheet" href="/stylesheets/style.css" />
+	</head>
+	<body>
+		<form method="POST" action="" enctype="multipart/form-data">
+			<div>
+				<label for="category"> Category: </label>
+				<select id="category" name="category" placeholder="Select a decade" required>
+					<option value="">Select a decade</option>
+					<% category_list.forEach(function(category) {%>
+					<option name="<%= category._id%>" value="<%= category._id%>">
+						<%= category.name%>
+					</option>
+					<%});%>
+				</select>
+			</div>
+			<div>
+				<label>
+					Name
+					<input name="name" required />
+				</label>
+			</div>
+			<div>
+				<label>
+					Year
+					<input type="number" name="year" required max="1899" min="1864" />
+				</label>
+			</div>
+			<div>
+				<label>
+					Price
+					<input type="number" name="price" required max="99.99" min="9.99" />
+				</label>
+			</div>
+			<div>
+				<label>
+					Stock count
+					<input type="number" name="stockCount" required max="99" min="3" />
+				</label>
+			</div>
+			<div>
+				<label>
+					Image
+					<input type="file" name="image" accept="image/*" />
+				</label>
+			</div>
+			<div>
+				<input type="submit" value="Add" />
+			</div>
+			<% if (locals.errors) { %>
+			<ul>
+				<% errors.forEach(function(error) { %>
+				<li><%= error.msg %></li>
+				<% }) %>
+			</ul>
+			<% } %>
+		</form>
+	</body>
+</html>

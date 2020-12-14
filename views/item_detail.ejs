@@ -5,10 +5,12 @@
 		<link rel="stylesheet" href="/stylesheets/style.css" />
 	</head>
 	<body>
-		<h1><%= item.name %></h1>
-		<p><a href="<%=item.category.url%>"><%= item.year %></a></p>
-		<img src="<%= item.image %>" alt="Wallpaper thumbnail" />
-		<p>$<%= item.price %></p>
-		<p>$<%= item.stockCount %> remaining.</p>
+		<div class="card">
+			<h1><%= item.name %></h1>
+			<p><a href="<%=item.category.url%>"><%= item.year %></a></p>
+			<img src="<%= item.image %>" alt="Wallpaper thumbnail" />
+			<p>$<%= item.price %></p>
+			<p><%= item.stockCount %> remaining.</p>
+		</div>
 	</body>
 </html>
