@@ -29,7 +29,6 @@ router.get("/items", item_controller.item_list);
 
 
 
-
 // categories
 
 router.get("/", category_controller.index);
