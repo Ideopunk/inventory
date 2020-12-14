@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const ItemSchema = new Schema({
 	name: { type: String, required: true, maxlength: 100 },
 	year: { type: Number, required: true, min: 1864, max: 1899 },
-	category: [{ type: Schema.Types.ObjectId, ref: "Category" }],
+	category: { type: Schema.Types.ObjectId, ref: "Category" },
 	image: {type: String, required: true},
 	stockCount: { type: Number, required: true },
 	price: { type: Number, required: true },
