@@ -21,11 +21,12 @@ const upload = multer({
 	fileFilter,
 	storage: multerS3({
 		s3: s3,
-		bucket: process.env.BUCKET_NAME,
-		contentType: multerS3.AUTO_CONTENT_TYPE,
-		// contentType: function (req, file, cb) {
-		// 	cb(null, "image/png");
-		// },
+        bucket: process.env.BUCKET_NAME,
+        acl: 'public-read',
+		// contentType: multerS3.AUTO_CONTENT_TYPE,
+		contentType: function (req, file, cb) {
+		 	cb(null, file.mimetype);
+		},
 		key: function (req, file, cb) {
 			cb(null, Date.now().toString());
 		},
