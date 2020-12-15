@@ -40,7 +40,7 @@ exports.item_delete_post = function (req, res, next) {
 	if (req.body.password === process.env.ADMIN_PASSWORD) {
 		const key = req.body.obj.match(/(\/[\w\.]+)/g);
 		const realKey = key[key.length - 1].slice(1);
-		console.log("realkey: " + realKey)
+		console.log("realkey: " + realKey);
 		const params = { Bucket: process.env.BUCKET_NAME, Key: realKey };
 
 		s3.deleteObject(params, function (err, data) {
@@ -105,5 +105,34 @@ exports.item_create_post = [
 				res.redirect(item.url);
 			});
 		}
+	},
+];
+
+exports.item_update_get = (req, res, next) => {
+	async.parallel(
+		{
+			item: function (callback) {
+				Item.findById(req.params.id).populate("category").exec(callback);
+			},
+			categories: function (callback) {
+				Category.find({}).exec(callback);
+			},
+		},
+		function (err, results) {
+			if (err) {
+				return next(err);
+			}
+			res.render("item_form", {
+				title: "Update item",
+				item: results.item,
+				category_list: results.categories,
+			});
+		}
+	);
+};
+
+exports.item_update_post = [
+	(req, res, next) => {
+		res.send("okay");
 	},
 ];

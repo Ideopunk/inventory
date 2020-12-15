@@ -8,10 +8,14 @@
 		<form method="POST" action="" enctype="multipart/form-data">
 			<div>
 				<label for="category"> Category: </label>
-				<select id="category" name="category" placeholder="Select a decade" required>
+				<select id="category" name="category" required>
 					<option value="">Select a decade</option>
 					<% category_list.forEach(function(category) {%>
-					<option name="<%= category._id%>" value="<%= category._id%>">
+					<option
+						name="<%= category._id%>"
+						value="<%= category._id%>"
+						selected="<%= category._id === item.category._id? true: false%>"
+					>
 						<%= category.name%>
 					</option>
 					<%});%>
@@ -19,37 +23,37 @@
 			</div>
 			<div>
 				<label>
-					Name
-					<input name="name" required />
+					Name <input name="name" required value="<%=item? item.name : ""%>" />
 				</label>
 			</div>
 			<div>
 				<label>
-					Year
-					<input type="number" name="year" required max="1899" min="1864" />
+					Year <input type="number" name="year" required max="1899" min="1864"
+					value="<%=item? item.year : ""%>"/>
 				</label>
 			</div>
 			<div>
 				<label>
-					Price
-					<input type="number" name="price" required max="99.99" min="9.99" />
+					Price <input type="number" name="price" required max="99.99" min="9.99"
+					value="<%=item? item.price : ""%>" />
 				</label>
 			</div>
 			<div>
 				<label>
-					Stock count
-					<input type="number" name="stockCount" required max="99" min="3" />
+					Stock count <input type="number" name="stockCount" required max="99" min="3"
+					value="<%=item? item.stockCount : ""%>" />
 				</label>
 			</div>
 			<div>
 				<label>
 					Image
 					<input type="file" name="image" accept="image/*" />
+					<% if (item) { %>
+					<img src="<%=item.image%>" alt="existing image" />
+					<% }%>
 				</label>
 			</div>
-			<div>
-				<input type="submit" value="Add" />
-			</div>
+			<div><input type="submit" value="<%=item? "Update": "Submit"%>" /></div>
 			<% if (locals.errors) { %>
 			<ul>
 				<% errors.forEach(function(error) { %>

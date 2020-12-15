@@ -7,25 +7,31 @@
 	<body>
 		<ul>
 			<% category_list.forEach(function(category) {%>
-			<li><a href="<%=category._id%>"> <%=category.name%></a></li>
+			<li><a href="/catalog/category/<%=category._id%>"> <%=category.name%> </a></li>
 			<%});%>
 		</ul>
 		<form method="POST" action="">
 			<div>
 				<label>
-					Name
-					<input name="name" required value="<%=category? category.name : ""%>" />
+					Name <input name="name" required value="<%=category? category.name : ""%>" />
 				</label>
 			</div>
 			<div>
 				<label>
-					Description
-					<input name="description" required value="<%=category? category.description : ""%>" />
+					Description <input name="description" required value="<%=category?
+					category.description : ""%>" />
 				</label>
 			</div>
+			<% if (category) { %>
 			<div>
-				<input type="submit" value="<%=category? "Update" : "Add"%>" />
+				<label>
+					Admin password
+					<input type="password" name="password" required />
+				</label>
 			</div>
+
+			<%}%>
+			<div><input type="submit" value="<%=category? "Update" : "Add"%>" /></div>
 			<% if (locals.errors) { %>
 			<ul>
 				<% errors.forEach(function(error) { %>

@@ -130,8 +130,8 @@ exports.category_update_get = function (req, res, next) {
 			category: function (callback) {
 				Category.findById(req.params.id).exec(callback);
 			},
-			category_items: function (callback) {
-				Item.find({ category: req.params.id }).exec(callback);
+			categories: function (callback) {
+				Category.find({}).exec(callback);
 			},
 		},
 		function (err, results) {
@@ -146,7 +146,7 @@ exports.category_update_get = function (req, res, next) {
 			res.render("category_form", {
 				title: "Update Category",
 				category: results.category,
-				category_list: results.category_items,
+				category_list: results.categories,
 			});
 		}
 	);
@@ -164,7 +164,7 @@ exports.category_update_post = [
 			_id: req.params.id,
 		});
 
-		if (!errors.isEmpty()) {
+		if (!errors.isEmpty() || req.body.password !== process.env.ADMIN_PASSWORD) {
 			console.log(errors);
 			Category.find({}, "name").exec((err, categories) => {
 				if (err) {

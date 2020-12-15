@@ -14,9 +14,9 @@ router.get("/item/create", item_controller.item_create_get);
 
 router.post("/item/create", upload, item_controller.item_create_post);
 
-// router.get("/item/:id/update", item_controller.item_update_get);
+router.get("/item/:id/update", item_controller.item_update_get);
 
-// router.post("/item/:id/update", item_controller.item_update_post);
+router.post("/item/:id/update", item_controller.item_update_post);
 
 router.get("/item/:id", item_controller.item_detail);
 
