@@ -1,38 +1,7 @@
 var express = require("express");
 var router = express.Router();
 
-const multer = require("multer");
-const aws = require("aws-sdk");
-
-const multerS3 = require("multer-s3");
-const s3 = new aws.S3({ region: "us-east-2" });
-
-const fileFilter = (req, file, cb) => {
-    console.log(file);
-    console.log(file.mimetype)
-	if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
-		cb(null, true);
-	} else {
-		cb(new Error("Invalid file type, only JPEG and PNG is allowed!"), false);
-	}
-};
-
-const upload = multer({
-	fileFilter,
-	storage: multerS3({
-		s3: s3,
-        bucket: process.env.BUCKET_NAME,
-        acl: 'public-read',
-		// contentType: multerS3.AUTO_CONTENT_TYPE,
-		contentType: function (req, file, cb) {
-		 	cb(null, file.mimetype);
-		},
-		key: function (req, file, cb) {
-			cb(null, Date.now().toString());
-		},
-	}),
-});
-// Require controller modules
+const upload = require("./upload.js").single("image");
 
 const item_controller = require("../controllers/itemController");
 const category_controller = require("../controllers/categoryController");
@@ -43,7 +12,7 @@ const category_controller = require("../controllers/categoryController");
 
 router.get("/item/create", item_controller.item_create_get);
 
-router.post("/item/create", upload.single("image"), item_controller.item_create_post);
+router.post("/item/create", upload, item_controller.item_create_post);
 
 // router.get("/item/:id/delete", item_controller.item_delete_get);
 
