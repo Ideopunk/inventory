@@ -7,14 +7,17 @@
 	<body>
 		<div class="card">
 			<h1><%= item.name %></h1>
-			<form method="POST" action="">
-				<input type="hidden", name="id", value="<%= item._id%>" />
-				<input type="submit" value="Delete" />
-			</form>
+
 			<p><a href="<%=item.category.url%>"><%= item.year %></a></p>
 			<img src="<%= item.image %>" alt="Wallpaper thumbnail" />
 			<p>$<%= item.price %></p>
 			<p><%= item.stockCount %> remaining.</p>
 		</div>
+		<form method="POST" action="">
+			<input type="hidden", name="id", value="<%= item._id%>" />
+			<input type="hidden", name="obj", value="<%= item.image%>" />
+			<input type="password" name="password" placeholder="To delete this item, include the admin password"/>
+			<input type="submit" value="Delete" />
+		</form>
 	</body>
 </html>

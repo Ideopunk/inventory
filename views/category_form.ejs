@@ -14,17 +14,17 @@
 			<div>
 				<label>
 					Name
-					<input name="name" required />
+					<input name="name" required value="<%=category? category.name : ""%>" />
 				</label>
 			</div>
 			<div>
 				<label>
 					Description
-					<input name="description" required />
+					<input name="description" required value="<%=category? category.description : ""%>" />
 				</label>
 			</div>
 			<div>
-				<input type="submit" value="Add" />
+				<input type="submit" value="<%=category? "Update" : "Add"%>" />
 			</div>
 			<% if (locals.errors) { %>
 			<ul>

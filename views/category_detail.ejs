@@ -8,8 +8,7 @@
 		<h1><%= category.name %></h1>
 		<p><%= category.description %></p>
 		<ul class="stuff-container">
-			<% if (category_items.length) { %> 
-				<% category_items.forEach(function(item) { %>
+			<% if (category_items.length) { %> <% category_items.forEach(function(item) { %>
 			<li class="card">
 				<h2>
 					<a href="<%=item.url%>"> <%= item.name %> </a>
@@ -18,10 +17,25 @@
 				<p>$<%= item.price %></p>
 				<p><%= item.stockCount %> remaining.</p>
 			</li>
-			<% }) %>
-			<% } else { %>
-			<li>There are no items in this category. Add some <a href="/catalog/item/create">here.</a></li>
+			<% }) %> <% } else { %>
+			<li>
+				There are no items in this category. You can add some
+				<a href="/catalog/item/create">here.</a>
+			</li>
+			<li>
+				Alternatively, you can delete this category!
+				<form method="POST" action="">
+					<input type="hidden" , name="id" , value="<%= category._id%>" />
+					<input
+						type="password"
+						name="password"
+						placeholder="Admin password"
+					/>
+					<input type="submit" value="Delete" />
+				</form>
+			</li>
 			<% } %>
+			<li><a href="<%=category.url%>/update">Update</a></li>
 		</ul>
 	</body>
 </html>

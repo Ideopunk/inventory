@@ -1,8 +1,10 @@
 const Item = require("../models/item");
 const Category = require("../models/category");
-
 const { body, validationResult } = require("express-validator");
 const async = require("async");
+const aws = require("aws-sdk");
+
+const s3 = new aws.S3({ region: "us-east-2" });
 
 exports.item_list = (req, res, next) => {
 	Item.find()
@@ -35,11 +37,26 @@ exports.item_detail = (req, res, next) => {
 };
 
 exports.item_delete_post = function (req, res, next) {
-	Item.findByIdAndRemove(req.body.id, function deleteItem(err) {
-		if (err) {return next(err);}
-		res.redirect("/")
-	})
-}
+	if (req.body.password === process.env.ADMIN_PASSWORD) {
+		const key = req.body.obj.match(/(\/[\w\.]+)/g);
+		const realKey = key[key.length - 1].slice(1);
+		console.log("realkey: " + realKey)
+		const params = { Bucket: process.env.BUCKET_NAME, Key: realKey };
+
+		s3.deleteObject(params, function (err, data) {
+			if (err) console.log(err, err.stack);
+			// an error occurred
+			else console.log(data); // successful response
+		});
+
+		Item.findByIdAndRemove(req.body.id, function deleteItem(err) {
+			if (err) {
+				return next(err);
+			}
+			res.redirect("/");
+		});
+	}
+};
 
 exports.item_create_get = (req, res, next) => {
 	Category.find({}, "name").exec((err, categories) => {
