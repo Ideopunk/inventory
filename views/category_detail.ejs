@@ -8,7 +8,8 @@
 		<h1><%= category.name %></h1>
 		<p><%= category.description %></p>
 		<ul class="stuff-container">
-			<% category_items.forEach(function(item) { %>
+			<% if (category_items.length) { %> 
+				<% category_items.forEach(function(item) { %>
 			<li class="card">
 				<h2>
 					<a href="<%=item.url%>"> <%= item.name %> </a>
@@ -17,7 +18,10 @@
 				<p>$<%= item.price %></p>
 				<p><%= item.stockCount %> remaining.</p>
 			</li>
-			<% }); %>
+			<% }) %>
+			<% } else { %>
+			<li>There are no items in this category. Add some <a href="/catalog/item/create">here.</a></li>
+			<% } %>
 		</ul>
 	</body>
 </html>

@@ -54,3 +54,38 @@ exports.category_create_get = (req, res, next) => {
 		res.render("category_form", { title: "Add a category", category_list: categories });
 	});
 };
+
+exports.category_create_post = [
+	body("name", "Name must be specified").trim().isLength({ min: 3 }).escape(),
+	body("description", "Describe it!").trim().isLength({ min: 3 }).escape(),
+	(req, res, next) => {
+		const errors = validationResult(req);
+
+		const category = new Category({
+			name: req.body.name,
+			description: req.body.description,
+		});
+
+		if (!errors.isEmpty()) {
+			console.log(errors);
+			Category.find({}, "name").exec((err, categories) => {
+				if (err) {
+					return next(err);
+				}
+				res.render("category_form", {
+					title: "Add category to inventory",
+					category_list: categories,
+					errors: errors.array(),
+				});
+			});
+		} else {
+			category.save(function (err) {
+				if (err) {
+					return next(err);
+				}
+				res.redirect(category.url);
+			});
+		}
+	},
+	
+];

@@ -50,8 +50,6 @@ exports.item_create_post = [
 	body("price", "Price must be specified").isNumeric(),
 	body("category", "Category must be specified").trim().isLength({ min: 1 }).escape(),
 	(req, res, next) => {
-		console.log(req.body);
-		console.log(req.file);
 		const errors = validationResult(req);
 
 		const item = new Item({
