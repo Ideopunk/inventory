@@ -13,16 +13,16 @@
 		<form method="POST" action="">
 			<div>
 				<label>
-					Name <input name="name" required value="<%=category? category.name : ""%>" />
+					Name <input name="name" required value="<%=locals.category ? category.name : ""%>" />
 				</label>
 			</div>
 			<div>
 				<label>
-					Description <input name="description" required value="<%=category?
+					Description <input name="description" required value="<%=locals.category?
 					category.description : ""%>" />
 				</label>
 			</div>
-			<% if (category) { %>
+			<% if (locals.category) { %>
 			<div>
 				<label>
 					Admin password
@@ -31,7 +31,7 @@
 			</div>
 
 			<%}%>
-			<div><input type="submit" value="<%=category? "Update" : "Add"%>" /></div>
+			<div><input type="submit" value="<%=locals.category? "Update" : "Add"%>" /></div>
 			<% if (locals.errors) { %>
 			<ul>
 				<% errors.forEach(function(error) { %>

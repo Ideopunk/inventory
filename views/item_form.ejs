@@ -14,7 +14,7 @@
 					<option
 						name="<%= category._id%>"
 						value="<%= category._id%>"
-						selected="<%= category._id === item.category._id? true: false%>"
+						selected="<%= locals.category && locals.item && locals.category._id === locals.item.category._id? true: false%>"
 					>
 						<%= category.name%>
 					</option>
@@ -23,39 +23,39 @@
 			</div>
 			<div>
 				<label>
-					Name <input name="name" required value="<%=item? item.name : ""%>" />
+					Name <input name="name" required value="<%=locals.item? item.name : ""%>" />
 				</label>
 			</div>
 			<div>
 				<label>
 					Year <input type="number" name="year" required max="1899" min="1864"
-					value="<%=item? item.year : ""%>"/>
+					value="<%=locals.item? item.year : ""%>"/>
 				</label>
 			</div>
 			<div>
 				<label>
 					Price <input type="number" name="price" required max="99.99" min="9.99"
-					value="<%=item? item.price : ""%>" />
+					value="<%=locals.item? item.price : ""%>" />
 				</label>
 			</div>
 			<div>
 				<label>
 					Stock count <input type="number" name="stockCount" required max="99" min="3"
-					value="<%=item? item.stockCount : ""%>" />
+					value="<%=locals.item? item.stockCount : ""%>" />
 				</label>
 			</div>
 			<div>
 				<label>
 					Image
 					<input type="file" name="image" accept="image/*" />
-					<% if (item) { %>
+					<% if (locals.item) { %>
 					<img src="<%=item.image%>" alt="existing image" />
 					<input type="hidden" name="obj" value="<%= item.image%>" />
 
 					<% }%>
 				</label>
 			</div>
-			<% if (item) { %>
+			<% if (locals.item) { %>
 			<div>
 				<label>
 					Admin password
@@ -64,7 +64,7 @@
 			</div>
 
 			<%}%>
-			<div><input type="submit" value="<%=item? "Update": "Submit"%>" /></div>
+			<div><input type="submit" value="<%=locals.item? "Update": "Submit"%>" /></div>
 			<% if (locals.errors) { %>
 			<ul>
 				<% errors.forEach(function(error) { %>

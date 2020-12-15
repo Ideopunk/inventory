@@ -13,7 +13,7 @@ exports.item_list = (req, res, next) => {
 			if (err) {
 				return next(err);
 			}
-			res.render("item_list", { title: "Index", item_list: list_items });
+			res.render("item_list", { title: "Item Index", item_list: list_items });
 		});
 };
 

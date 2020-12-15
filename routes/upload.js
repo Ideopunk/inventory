@@ -28,18 +28,7 @@ const upload = multer({
 			cb(null, file.mimetype);
 		},
 		key: function (req, file, cb) {
-			console.log(req.body.obj)
-
-			if (req.body.obj) {
-				const key = req.body.obj.match(/(\/[\w\.]+)/g);
-				const realKey = key[key.length - 1].slice(1);
-				cb(null, realKey)
-			} else {
-				cb(null, Date.now().toString());
-
-			}
-
-
+				cb(null, req.params.id);
 		},
 	}),
 });
