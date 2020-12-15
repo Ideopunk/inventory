@@ -165,7 +165,6 @@ exports.category_update_post = [
 		});
 
 		if (!errors.isEmpty() || req.body.password !== process.env.ADMIN_PASSWORD) {
-			console.log(errors);
 			Category.find({}, "name").exec((err, categories) => {
 				if (err) {
 					return next(err);

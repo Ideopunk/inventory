@@ -132,7 +132,63 @@ exports.item_update_get = (req, res, next) => {
 };
 
 exports.item_update_post = [
+	body("name", "Name must be specified").trim().isLength({ min: 3 }).escape(),
+	body("year", "Year must be specified").isNumeric(),
+	body("stockCount", "Stock must be specified").isNumeric(),
+	body("price", "Price must be specified").isNumeric(),
+	body("category", "Category must be specified").trim().isLength({ min: 1 }).escape(),
 	(req, res, next) => {
-		res.send("okay");
+		const errors = validationResult(req);
+
+		let location = "";
+
+		if (req.file) {
+			location = req.file.location;
+		} else {
+			location = req.body.obj;
+		}
+
+		const item = new Item({
+			name: req.body.name,
+			price: req.body.price,
+			stockCount: req.body.stockCount,
+			year: req.body.year,
+			image: location,
+			category: req.body.category,
+			_id: req.params.id,
+		});
+
+		if (!errors.isEmpty() || req.body.password !== process.env.ADMIN_PASSWORD) {
+			async.parallel(
+				{
+					item: function (callback) {
+						Item.findById(req.params.id).populate("category").exec(callback);
+					},
+					categories: function (callback) {
+						Category.find({}).exec(callback);
+					},
+				},
+				function (err, results) {
+					if (err) {
+						return next(err);
+					}
+					res.render("item_form", {
+						title: "Update item",
+						item: results.item,
+						category_list: results.categories,
+						errors: errors.array(),
+					});
+					return;
+				}
+			);
+		} else {
+			Item.findByIdAndUpdate(req.params.id, item, {}, function (err, theitem) {
+				if (err) {
+					return next(err);
+				}
+
+				res.redirect(theitem.url);
+			});
+		}
 	},
 ];

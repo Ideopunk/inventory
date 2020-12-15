@@ -50,9 +50,20 @@
 					<input type="file" name="image" accept="image/*" />
 					<% if (item) { %>
 					<img src="<%=item.image%>" alt="existing image" />
+					<input type="hidden" name="obj" value="<%= item.image%>" />
+
 					<% }%>
 				</label>
 			</div>
+			<% if (item) { %>
+			<div>
+				<label>
+					Admin password
+					<input type="password" name="password" required />
+				</label>
+			</div>
+
+			<%}%>
 			<div><input type="submit" value="<%=item? "Update": "Submit"%>" /></div>
 			<% if (locals.errors) { %>
 			<ul>
