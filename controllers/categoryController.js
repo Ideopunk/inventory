@@ -8,7 +8,7 @@ exports.index = (req, res, next) => {
 	Category.find()
 		.sort([["name", "descending"]])
 		.exec((err, list_categories) => {
-            console.log(list_categories)
+			console.log(list_categories);
 			if (err) {
 				return next(err);
 			}
@@ -44,4 +44,13 @@ exports.category_detail = (req, res, next) => {
 			});
 		}
 	);
+};
+
+exports.category_create_get = (req, res, next) => {
+	Category.find({}, "name").exec((err, categories) => {
+		if (err) {
+			return next(err);
+		}
+		res.render("category_form", { title: "Add a category", category_list: categories });
+	});
 };

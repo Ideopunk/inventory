@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Inventory / Add category</title>
+		<link rel="stylesheet" href="/stylesheets/style.css" />
+	</head>
+	<body>
+		<ul>
+			<% category_list.forEach(function(category) {%>
+			<li><a href="<%=category._id%>"> <%=category.name%></a></li>
+			<%});%>
+		</ul>
+		<form method="POST" action="">
+			<div>
+				<label>
+					Name
+					<input name="name" required />
+				</label>
+			</div>
+			<div>
+				<label>
+					Description
+					<input name="description" required />
+				</label>
+			</div>
+			<div>
+				<input type="submit" value="Add" />
+			</div>
+			<% if (locals.errors) { %>
+			<ul>
+				<% errors.forEach(function(error) { %>
+				<li><%= error.msg %></li>
+				<% }) %>
+			</ul>
+			<% } %>
+		</form>
+	</body>
+</html>

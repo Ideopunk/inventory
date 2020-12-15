@@ -26,11 +26,13 @@ router.get("/item/:id", item_controller.item_detail);
 
 router.get("/items", item_controller.item_list);
 
+
+
 // categories
 
 router.get("/", category_controller.index);
 
-// router.get("/category/create", category_controller.category_create_get);
+router.get("/category/create", category_controller.category_create_get);
 
 // router.post("/category/create", category_controller.category_create_post);
 
