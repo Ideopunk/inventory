@@ -24,6 +24,8 @@ router.post("/item/create", upload, item_controller.item_create_post);
 
 router.get("/item/:id", item_controller.item_detail);
 
+router.post("/item/:id", item_controller.item_delete_post);
+
 router.get("/items", item_controller.item_list);
 
 
@@ -45,5 +47,6 @@ router.post("/category/create", category_controller.category_create_post);
 // router.post("/category/:id/update", category_controller.category_update_post);
 
 router.get("/category/:id", category_controller.category_detail);
+
 
 module.exports = router;

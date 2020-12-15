@@ -7,6 +7,10 @@
 	<body>
 		<div class="card">
 			<h1><%= item.name %></h1>
+			<form method="POST" action="">
+				<input type="hidden", name="id", value="<%= item._id%>" />
+				<input type="submit" value="Delete" />
+			</form>
 			<p><a href="<%=item.category.url%>"><%= item.year %></a></p>
 			<img src="<%= item.image %>" alt="Wallpaper thumbnail" />
 			<p>$<%= item.price %></p>

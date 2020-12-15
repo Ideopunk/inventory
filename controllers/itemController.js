@@ -34,6 +34,13 @@ exports.item_detail = (req, res, next) => {
 		});
 };
 
+exports.item_delete_post = function (req, res, next) {
+	Item.findByIdAndRemove(req.body.id, function deleteItem(err) {
+		if (err) {return next(err);}
+		res.redirect("/")
+	})
+}
+
 exports.item_create_get = (req, res, next) => {
 	Category.find({}, "name").exec((err, categories) => {
 		if (err) {
